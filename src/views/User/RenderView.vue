@@ -13,7 +13,9 @@
       <b-col>
         <div class="textarea-wrapper">
           <h3>Preview</h3>
-          <div ref="htmlContent" class="mt-3 border flex-grow p-2" id="katex-render"></div>
+          <div class="mt-3 border flex-grow p-2">
+            <iframe title="PDF" width="100%" height="1000px" :src="`/pdfjs-4.2.67-legacy-dist/web/viewer.html?file=${documentUrl}`"></iframe>
+          </div>
         </div>
       </b-col>
     </b-row>
@@ -21,26 +23,22 @@
 </template>
 
 <script>
-import katex from 'katex';
 import html2pdf from 'html2pdf.js';
+import Api from '@/services/api';
 export default {
   data() {
     return {
-      textareaContent: ''
+      textareaContent: '',
+      documentUrl: ''
     };
   },
   methods: {
-    render() {
-      // const options = {
-      //   packages: ['lingmacros', 'tree-dvips'],
-      //   ignoreErrors: true // Set to false to handle errors
-      // };
-      // latex.dom(this.$refs.htmlContent).render(this.textareaContent, options);
-
-      const targetElement = document.getElementById('katex-render');
-      katex.render(this.textareaContent, targetElement, {
-        throwOnError: false
-      });
+    async render() {
+       const api = new Api();
+      var response = await api.post("latex/render", JSON.stringify({
+        renderData: this.textareaContent,
+      }))
+      this.documentUrl="https://localhost:7226/"+response.data
     },
     convertPdf() {
       const element = this.$refs.htmlContent;
@@ -52,7 +50,7 @@ export default {
         jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
       };
       html2pdf().from(element).set(opt).save();
-    }
+    },
   }
 };
 </script>

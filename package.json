@@ -24,6 +24,8 @@
     "jspdf": "^2.5.1",
     "katex": "^0.16.10",
     "latex.js": "^0.12.6",
+    "pdfjs": "^2.5.3",
+    "pdfjs-dist": "^4.2.67",
     "pinia": "^2.1.7",
     "vue": "^3.4.27",
     "vue-codemirror": "^6.1.1",

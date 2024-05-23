@@ -7,7 +7,7 @@ class Api {
   axiosInstance: AxiosInstance;
 
   constructor() {
-    this.baseURL = 'http://localhost:5108/api';
+    this.baseURL = 'https://localhost:7226/api';
     this.axiosInstance = axios.create({
       baseURL: this.baseURL,
       timeout: 5000,

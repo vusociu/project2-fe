@@ -52,7 +52,7 @@ export default {
         email: this.formData.email,
         password: this.formData.password
       }))
-      console.log(data.code)
+      
     },
     submitRegister() {
       // Implement registration logic here (e.g., call API)
